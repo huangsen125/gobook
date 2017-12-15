@@ -3,6 +3,9 @@ package main
 import "fmt"
 
 func main()  {
-	fmt.Println("1231231231231")
-	fmt.Println("1231231231")
+	var a = [3]int{1, 2, 3}
+	var b = &a
+	b[1]++
+	a[0]++
+	fmt.Println(a, *b)
 }
