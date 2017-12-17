@@ -45,7 +45,7 @@ func (m *MusicManager) Remove(index int) *MusicManager {
 
 	removedMusic := &m.musics[index]
 
-	if condition {
-
+	if index < len(m.musics)-1 {
+		m.music = append(m.musecs[:index-1], m.musics[index+1:]...)
 	}
 }
