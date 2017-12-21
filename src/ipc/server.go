@@ -24,7 +24,7 @@ type IpcServer struct {
 	Server
 }
 
-func NewIpcServer(server Server) *IpcServer {
+func (server Server) *IpcServer {
 	return &IpcServer{server}
 }
 
