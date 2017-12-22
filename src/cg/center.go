@@ -41,5 +41,27 @@ func (server *CenterServer) addPlayer(params string) error  {
 	server.mutex.Lock()
 	defer server.mutex.Unlock()
 
-	server.
+	server.players = append(server.players, player)
+
+	return nil
+}
+
+func (server *CenterServer) removePlayer(params string) error  {
+	
+	server.mutex.Lock()
+	defer server.mutex.Unlock()
+
+	for i,v := range server.players {
+		if v.Name == params {
+			if len(server.players) == 1 {
+				server.players = make([]*Player, 0)
+			} else if i == len(server.players) - 1{
+				server.players = server.players[:i - 1]
+			} else if i == 0 {
+				server.players = server.players[1:]
+			} else {
+				server.players = append(server.players[:i - 1],server.players[:i+1]...)
+			}
+		}
+	}
 }

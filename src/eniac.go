@@ -3,17 +3,23 @@ package main
 import "fmt"
 
 func main() {
-	//sums := []int{1, 3, 6, 8, 2, 9}
-	fmt.Println(-1 + -2)
-	//sums := make([]int, 0, 100)
-	/* fmt.Println(len(sums))
-	fmt.Println(cap(sums))
-	fmt.Println(sums[:2])
-	for i, sum := range sums {
-		fmt.Println("index:", i, sum)
-	}
+	a := 100
+	b := 200
+	fmt.Println("a:", a)
+	fmt.Println("b:", b)
+	x, y := swap2(&a, &b)
+	fmt.Println("a:", *x)
+	fmt.Println("b:", y)
+}
 
-	for i, str := range "abcdefg" {
-		fmt.Println(i, str)
-	} */
+func swap2(a, b *int) (x, y *int) {
+	fmt.Println("a2:", a)
+	fmt.Println("b2:", b)
+
+	temp := a
+	x = b
+	y = temp
+	fmt.Println("a3:", a)
+	fmt.Println("b3:", b)
+	return
 }
