@@ -62,6 +62,52 @@ func (server *CenterServer) removePlayer(params string) error  {
 			} else {
 				server.players = append(server.players[:i - 1],server.players[:i+1]...)
 			}
+			return nil
 		}
+	}
+
+	return errors.New("Player not found.")
+}
+
+func (server *CenterServer) listPlayer(params string)(players string, err error)  {
+	
+	server.mutex.RLock()
+	defer server.mutex.RUnlock()
+
+	if len(server.players) > 0 {
+		b, _ := json.Marshal(server.players)
+		players = string(b)
+	}else{
+		err = errors.New("No player online.")
+	}
+	return
+}
+
+func (server *CenterServer) broadcast(params string) error {
+	
+	var message Message
+	err := json.Unmarshal([]byte(params), &message)
+	if err != nil{
+		return err
+	}
+
+	server.mutex.Lock()
+	defer server.mutex.Unlock()
+
+	if len(server.players) > 0 {
+		for _, player := range server.players {
+			player.mq <- &message
+		}
+	} else {
+		err = errors.New("No player online.")
+	}
+	return err
+}
+
+func (server *CenterServer) Handle(method, params string) *ipc.Response  {
+	switch method {
+	case "addplayer":
+		err := server.addPlayer(params)
+		
 	}
 }
